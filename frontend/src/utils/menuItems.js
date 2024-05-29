@@ -30,3 +30,26 @@ export const menuItems = [
     link: "/dashboard",
   },
 ];
+
+export const categoryList = [
+  {
+    title: "Salary",
+    value: "salary",
+  },
+  {
+    title: "Freelancing",
+    value: "freelancing",
+  },
+  {
+    title: "Investments",
+    value: "investments",
+  },
+  {
+    title: "Stocks",
+    value: "stocks",
+  },
+  {
+    title: "Bank Transfer",
+    value: "bank",
+  },
+];

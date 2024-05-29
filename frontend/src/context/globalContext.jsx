@@ -1,8 +1,8 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import axios from "axios";
 const BASE_URL = "http://locaclhost:5000/api/v1/";
 
-const GlobalContext = createContext();
+export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [incomes, setIncomes] = useState([]);
@@ -20,6 +20,7 @@ export const GlobalProvider = ({ children }) => {
   const getIncomes = async () => {
     try {
       const response = await axios.get(`${BASE_URL}get-incomes`);
+
       setIncomes(response.data);
     } catch (err) {
       setError(err.response.data.message);
