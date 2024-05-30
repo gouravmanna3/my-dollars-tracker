@@ -1,9 +1,16 @@
 import React from "react";
 import { dateFormat } from "../../utils/dateFormat";
-import { money, grocery, dollar, calender, comment } from "../../utils/Icons";
 import Button from "../common/Button/Button";
+import { MdLocalGroceryStore } from "react-icons/md";
+import { FaMoneyBill } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
-function IncomeItem({
+import "./IncomeItem.scss";
+
+const IncomeItem = ({
   id,
   title,
   amount,
@@ -12,31 +19,35 @@ function IncomeItem({
   description,
   deleteItem,
   type,
-}) {
-  console.log("type", type);
-
+}) => {
   return (
     <div className="income-item-container">
-      <div className="icon">{type === "expense" ? grocery : money}</div>
+      <div className="icon">
+        {type === "expense" ? (
+          <MdLocalGroceryStore />
+        ) : (
+          <FaMoneyBill size={40} />
+        )}
+      </div>
       <div className="content">
         <h5>{title}</h5>
         <div className="inner-content">
           <div className="text">
             <p>
-              {dollar} {amount}
+              <FaDollarSign /> {amount}
             </p>
             <p>
-              {calender} {dateFormat(date)}
+              <FaCalendar /> {dateFormat(date)}
             </p>
             <p>
-              {comment}
+              <FaComment />
               {description}
             </p>
           </div>
           <div className="btn-con">
             <Button
               className="delete-btn"
-              icon={trash}
+              icon={<FaTrash fill="black" />}
               onClick={() => deleteItem(id)}
             />
           </div>
@@ -44,6 +55,6 @@ function IncomeItem({
       </div>
     </div>
   );
-}
+};
 
 export default IncomeItem;

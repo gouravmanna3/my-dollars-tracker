@@ -2,6 +2,10 @@
   display: flex;
   overflow: auto;
 
+  .form-container {
+    width: 300px;
+  }
+
   h1 {
     font-size: 2.25rem;
   }

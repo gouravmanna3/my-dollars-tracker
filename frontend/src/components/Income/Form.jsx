@@ -7,7 +7,7 @@ import "./Form.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from "../../context/globalContext";
 
-const Form = () => {
+const Form = ({ formSubmit }) => {
   const [inputState, setInputState] = useState({
     title: "",
     amount: "",
@@ -15,8 +15,6 @@ const Form = () => {
     category: "",
     description: "",
   });
-
-  const { addIncome, getIncomes, error, setError } = useGlobalContext();
 
   const {
     register,
@@ -27,7 +25,7 @@ const Form = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    addIncome(data);
+    formSubmit(data);
     reset();
   };
 

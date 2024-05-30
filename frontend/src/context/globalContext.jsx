@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
+
 import axios from "axios";
-const BASE_URL = "http://locaclhost:5000/api/v1/";
+const BASE_URL = "http://localhost:5000/api/v1/";
 
 export const GlobalContext = createContext();
 
@@ -13,6 +14,7 @@ export const GlobalProvider = ({ children }) => {
     try {
       await axios.post(`${BASE_URL}add-income`, income);
     } catch (err) {
+      console.log(err);
       setError(err.response.data.message);
     }
   };
@@ -36,14 +38,6 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  const totalIncome = () => {
-    let totalIncome = 0;
-    incomes.forEach((income) => {
-      totalIncome = totalIncome + income.amount;
-    });
-    return totalIncome;
-  };
-
   // expenses
 
   const addExpense = async (income) => {
@@ -56,7 +50,11 @@ export const GlobalProvider = ({ children }) => {
 
   const getExpenses = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}get-expenses`);
+      const response = await axios.get(`${BASE_URL}get-expenses`, {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      });
       setExpenses(response.data);
     } catch (err) {
       setError(err.response.data.message);
@@ -77,7 +75,7 @@ export const GlobalProvider = ({ children }) => {
     expenses.forEach((expense) => {
       totalExpense = totalExpense + expense.amount;
     });
-    return totalIncome;
+    return totalExpense;
   };
 
   return (
@@ -90,7 +88,6 @@ export const GlobalProvider = ({ children }) => {
         getExpenses,
         deleteExpense,
         totalExpense,
-        totalIncome,
       }}
     >
       {children}

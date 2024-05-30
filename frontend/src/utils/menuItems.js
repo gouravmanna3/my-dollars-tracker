@@ -21,7 +21,7 @@ export const menuItems = [
     id: 3,
     title: "Incomes",
     icon: faMoneyBillTrendUp,
-    link: "/dashboard",
+    link: "/incomes",
   },
   {
     id: 4,
