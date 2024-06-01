@@ -4,13 +4,17 @@ import Navigation from "./components/Navigation/Navigation";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Income from "./components/Income/Income";
 import Expenses from "./components/Expenses/Expenses";
+
+import { TailSpin } from "react-loader-spinner";
 // import { useGlobalContext } from "./context/globalContext";
 
 import "./App.scss";
 import { GlobalProvider } from "./context/globalContext";
+import { useSelector } from "react-redux";
 
 function App() {
   const [active, setActive] = useState(1);
+  const { loading } = useSelector((state) => state.incomes);
 
   // const global = useGlobalContext();
 
@@ -35,9 +39,8 @@ function App() {
       {orbMemo}
       <div className="main-container">
         <Navigation active={active} setActive={setActive} />
-        <GlobalProvider>
-          <main className="content-container">{displayData()}</main>
-        </GlobalProvider>
+
+        <main className="content-container">{displayData()}</main>
       </div>
     </div>
   );

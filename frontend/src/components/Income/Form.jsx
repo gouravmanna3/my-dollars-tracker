@@ -1,21 +1,10 @@
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
-import { categoryList } from "../../utils/menuItems";
 
 import "./Form.scss";
 import "react-datepicker/dist/react-datepicker.css";
-import { useGlobalContext } from "../../context/globalContext";
 
-const Form = ({ formSubmit }) => {
-  const [inputState, setInputState] = useState({
-    title: "",
-    amount: "",
-    date: "",
-    category: "",
-    description: "",
-  });
-
+const Form = ({ formSubmit, btnName, categoryList }) => {
   const {
     register,
     handleSubmit,
@@ -29,15 +18,14 @@ const Form = ({ formSubmit }) => {
     reset();
   };
 
-  const { title, amount, date, category, description } = inputState;
   return (
     <div className="form">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="input-control">
           <input
             type="text"
-            {...register("name", { required: true })}
-            placeholder="Salary Title"
+            {...register("title", { required: true })}
+            placeholder="Title"
           />
           {errors.name && <span>This field is required</span>}
         </div>
@@ -46,7 +34,7 @@ const Form = ({ formSubmit }) => {
           <input
             type="text"
             {...register("amount", { required: true })}
-            placeholder="Salary Amount"
+            placeholder="Amount"
           />
           {errors.amount && <span>This field is required</span>}
         </div>
@@ -115,7 +103,7 @@ const Form = ({ formSubmit }) => {
           {errors.description && <span>This field is required</span>}
         </div>
 
-        <input type="submit" className="submit-btn" />
+        <input type="submit" className="submit-btn" value={btnName} />
       </form>
     </div>
   );

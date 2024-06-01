@@ -18,7 +18,7 @@ const incomeSlice = createSlice({
     },
     fetchIncomeFailure: (state, action) => {
       state.loading = false;
-      state.users = [];
+      state.incomes = [];
       state.error = action.payload;
     },
 
@@ -28,7 +28,8 @@ const incomeSlice = createSlice({
     },
     createIncomeSuccess: (state, action) => {
       state.loading = false;
-      state.incomes.push(action.payload);
+      console.log("state", state);
+      state.incomes.push(action.payload.data);
       state.error = "";
     },
     createIncomeFailure: (state, action) => {
@@ -43,7 +44,7 @@ const incomeSlice = createSlice({
     deleteIncomeSuccess: (state, action) => {
       state.loading = false;
       state.incomes = state.incomes.filter(
-        (income) => income.id !== action.payload
+        (income) => income["_id"] !== action.payload
       );
       state.error = "";
     },

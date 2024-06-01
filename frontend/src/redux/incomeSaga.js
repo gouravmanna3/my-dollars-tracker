@@ -11,7 +11,6 @@ import {
   deleteIncomeFailure,
   deleteIncomeRequest,
 } from "./incomeSlice";
-import { get } from "react-hook-form";
 
 const BASE_URL = "http://localhost:5000/api/v1/";
 
@@ -31,6 +30,7 @@ function* createIncome(action) {
       `${BASE_URL}add-income`,
       action.payload
     );
+    console.log(response);
     yield put(createIncomeSuccess(response.data));
   } catch (error) {
     yield put(createIncomeFailure(error.message));
@@ -39,7 +39,7 @@ function* createIncome(action) {
 
 function* deleteIncome(action) {
   try {
-    yield call(axios.delete, `${BASE_URL}/delete-expense/${action.payload}`);
+    yield call(axios.delete, `${BASE_URL}/delete-income/${action.payload}`);
     yield put(deleteIncomeSuccess(action.payload));
   } catch (error) {
     yield put(deleteIncomeFailure(error.message));

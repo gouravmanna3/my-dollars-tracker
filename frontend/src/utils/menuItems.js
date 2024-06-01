@@ -4,6 +4,7 @@ import {
   faMoneyBillTrendUp,
   faMoneyBillTransfer,
 } from "@fortawesome/free-solid-svg-icons";
+
 export const menuItems = [
   {
     id: 1,
@@ -31,7 +32,7 @@ export const menuItems = [
   },
 ];
 
-export const categoryList = [
+export const incomeCategory = [
   {
     title: "Salary",
     value: "salary",
@@ -51,5 +52,32 @@ export const categoryList = [
   {
     title: "Bank Transfer",
     value: "bank",
+  },
+];
+
+export const expenseCategory = [
+  {
+    title: "Groceries",
+    value: "groceries",
+  },
+  {
+    title: "Subscriptions",
+    value: "subscriptions",
+  },
+  {
+    title: "Clothing",
+    value: "clothing",
+  },
+  {
+    title: "Travelling",
+    value: "travelling",
+  },
+  {
+    title: "Gas",
+    value: "gas",
+  },
+  {
+    title: "Others",
+    value: "others",
   },
 ];
