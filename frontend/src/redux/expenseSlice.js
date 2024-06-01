@@ -41,7 +41,6 @@ const expenseSlice = createSlice({
       state.loading = true;
     },
     deleteExpenseSuccess: (state, action) => {
-      console.log(action.payload);
       state.loading = false;
       state.expenses = state.expenses.filter(
         (expense) => expense["_id"] !== action.payload

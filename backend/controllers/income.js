@@ -20,7 +20,9 @@ const addIncome = async (req, res) => {
     }
 
     await income.save();
-    res.status(201).json({ message: "Income Added Successfully" });
+    res
+      .status(201)
+      .json({ data: income, message: "Income Added Successfully" });
   } catch (e) {
     res.status(500).json({ message: "Server Error! Failed to Add" });
   }

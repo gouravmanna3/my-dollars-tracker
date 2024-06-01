@@ -28,7 +28,6 @@ const incomeSlice = createSlice({
     },
     createIncomeSuccess: (state, action) => {
       state.loading = false;
-      console.log("state", state);
       state.incomes.push(action.payload.data);
       state.error = "";
     },
