@@ -22,7 +22,7 @@ const Orb = () => {
           }
         `}
       </style>
-      <div className="orb-container">orb</div>
+      <div className="orb-container"></div>
     </>
   );
 };

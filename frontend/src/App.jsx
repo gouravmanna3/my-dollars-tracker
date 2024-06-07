@@ -4,19 +4,16 @@ import Navigation from "./components/Navigation/Navigation";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Income from "./components/Income/Income";
 import Expenses from "./components/Expenses/Expenses";
-
 import { TailSpin } from "react-loader-spinner";
-// import { useGlobalContext } from "./context/globalContext";
+import { useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import UserAuth from "./components/Login";
 
 import "./App.scss";
-import { GlobalProvider } from "./context/globalContext";
-import { useSelector } from "react-redux";
 
-function App() {
+function Home() {
   const [active, setActive] = useState(1);
   const { loading } = useSelector((state) => state.incomes);
-
-  // const global = useGlobalContext();
 
   const orbMemo = useMemo(() => <Orb />);
 
@@ -45,5 +42,14 @@ function App() {
     </div>
   );
 }
+
+const App = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<UserAuth />} />
+    </Routes>
+  );
+};
 
 export default App;
