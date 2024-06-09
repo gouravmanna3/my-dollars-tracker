@@ -11,8 +11,7 @@ import {
   deleteExpenseFailure,
   deleteExpenseRequest,
 } from "./expenseSlice";
-
-const BASE_URL = "http://localhost:5000/api/v1/";
+import { BASE_URL } from "../utils/utils";
 
 function* fetchExpense() {
   try {

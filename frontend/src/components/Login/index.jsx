@@ -1,20 +1,35 @@
 import SignupForm from "./SignupForm";
 import Login from "./LoginForm";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import "./styles.scss";
 import { loginRequest } from "../../redux/authSlice";
 
 const UserAuth = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user && user.email) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
   const onSignUpSubmit = (data) => {
     console.log("SignUp", data);
     // Handle login logic here
   };
 
   const onLoginSubmit = (data) => {
-    console.log("login", data);
     dispatch(loginRequest(data));
+    console.log("$$$$$$$$$user true", user);
+    // if (user.email) {
+    //   navigate("/");
+    // }
   };
 
   return (

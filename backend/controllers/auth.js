@@ -58,7 +58,7 @@ const loginUser = async (req, res) => {
     });
 
     // Send a 200 response with the user's details in the JSON response
-    res.status(200).json({ user: { name: user.fullName, email: user.email } });
+    res.status(200).json({ name: user.fullName, email: user.email });
   } catch (err) {
     // If an error occurs, send a 400 response with the error details
     console.log("ERROR ###########", err);
