@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TailSpin } from "react-loader-spinner";
 import Form from "./Form";
@@ -17,7 +17,7 @@ import "./Income.scss";
 const Income = () => {
   const dispatch = useDispatch();
   const { incomes, loading, error } = useSelector((state) => state.incomes);
-  // const { loading } = useSelector((state) => state.loading);
+
   console.log("selector", incomes);
   useEffect(() => {
     dispatch(fetchIncomeRequest());
