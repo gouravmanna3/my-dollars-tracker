@@ -5,18 +5,25 @@ const SignupForm = ({ onSubmit }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+
+  const handleRegisterSubmit = (data) => {
+    onSubmit(data);
+    reset();
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleRegisterSubmit)}>
         <label htmlFor="chk" aria-hidden="true">
           Sign up
         </label>
         <input
           type="text"
-          id="username"
-          placeholder="User name"
-          {...register("username", { required: "Username is required" })}
+          id="fullName"
+          placeholder="Full Name"
+          {...register("fullName", { required: "Name is required" })}
         />
         <input
           type="email"

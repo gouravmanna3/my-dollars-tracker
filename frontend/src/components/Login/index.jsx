@@ -1,13 +1,14 @@
-import SignupForm from "./SignupForm";
-import Login from "./LoginForm";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import SignupForm from "./SignupForm";
+import Login from "./LoginForm";
+import { loginRequest, registerRequest } from "../../redux/authSlice";
 
 import "./styles.scss";
-import { loginRequest } from "../../redux/authSlice";
 
 const UserAuth = () => {
+  const [isRegistered, setIsRegistered] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,17 +20,20 @@ const UserAuth = () => {
     }
   }, [user, navigate]);
 
+  useEffect(() => {
+    if (isRegistered) {
+      navigate("/login");
+    }
+  }, [isRegistered]);
+
   const onSignUpSubmit = (data) => {
     console.log("SignUp", data);
-    // Handle login logic here
+    dispatch(registerRequest(data));
+    setIsRegistered(true);
   };
 
   const onLoginSubmit = (data) => {
     dispatch(loginRequest(data));
-    console.log("$$$$$$$$$user true", user);
-    // if (user.email) {
-    //   navigate("/");
-    // }
   };
 
   return (

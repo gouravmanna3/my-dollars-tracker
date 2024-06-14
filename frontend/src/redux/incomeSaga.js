@@ -15,7 +15,9 @@ import { BASE_URL } from "../utils/utils";
 
 function* fetchIncome() {
   try {
-    const response = yield call(axios.get, `${BASE_URL}get-incomes`);
+    const response = yield call(axios.get, `${BASE_URL}get-incomes`, {
+      withCredentials: true,
+    });
     yield put(fetchIncomeSuccess(response.data));
   } catch (err) {
     yield put(fetchIncomeFailure(err.message));
@@ -27,7 +29,10 @@ function* createIncome(action) {
     const response = yield call(
       axios.post,
       `${BASE_URL}add-income`,
-      action.payload
+      action.payload,
+      {
+        withCredentials: true,
+      }
     );
     console.log(response);
     yield put(createIncomeSuccess(response.data));
@@ -38,7 +43,9 @@ function* createIncome(action) {
 
 function* deleteIncome(action) {
   try {
-    yield call(axios.delete, `${BASE_URL}/delete-income/${action.payload}`);
+    yield call(axios.delete, `${BASE_URL}/delete-income/${action.payload}`, {
+      withCredentials: true,
+    });
     yield put(deleteIncomeSuccess(action.payload));
   } catch (error) {
     yield put(deleteIncomeFailure(error.message));

@@ -5,9 +5,16 @@ const Login = ({ onSubmit }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+
+  const handleLoginSubmit = (data) => {
+    onSubmit(data);
+    reset();
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleLoginSubmit)}>
       <label htmlFor="chk" aria-hidden="true">
         Login
       </label>
