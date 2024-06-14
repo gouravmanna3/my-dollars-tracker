@@ -66,4 +66,25 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const logoutUser = (req, res) => {};
+
+const auth = async (req, res, next) => {
+  const token = req.cookies.jwtToken;
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, secretKey);
+      console.log("decoded", decoded);
+      req.user = await User.findById(decoded.id).select("-password");
+      console.log(req.user);
+      next();
+    } catch (error) {
+      console.error(error);
+      res.status(401).json({ message: "Not authorized, token failed" });
+    }
+  }
+  if (!token) {
+    res.status(401).json({ message: "Not authorized, no token" });
+  }
+};
+
+module.exports = { registerUser, loginUser, logoutUser, auth };

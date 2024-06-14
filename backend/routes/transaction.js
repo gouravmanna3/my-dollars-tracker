@@ -9,17 +9,23 @@ const {
   getExpenses,
   deleteExpense,
 } = require("../controllers/expenses");
-const { registerUser, loginUser } = require("../controllers/auth");
+const {
+  registerUser,
+  loginUser,
+  logoutUser,
+  auth,
+} = require("../controllers/auth");
 const router = express.Router();
 
 router
-  .post("/add-income", addIncome)
-  .get("/get-incomes", getIncomes)
-  .delete("/delete-income/:id", deleteIncome)
-  .post("/add-expense", addExpense)
-  .get("/get-expenses", getExpenses)
-  .delete("/delete-expense/:id", deleteExpense)
-  .post("/signup", registerUser)
-  .post("/login", loginUser);
+  .post("/add-income", auth, addIncome)
+  .get("/get-incomes", auth, getIncomes)
+  .delete("/delete-income/:id", auth, deleteIncome)
+  .post("/add-expense", auth, addExpense)
+  .get("/get-expenses", auth, getExpenses)
+  .delete("/delete-expense/:id", auth, deleteExpense)
+  .post("/register", registerUser)
+  .post("/login", loginUser)
+  .post("/logout", logoutUser);
 
 module.exports = router;
