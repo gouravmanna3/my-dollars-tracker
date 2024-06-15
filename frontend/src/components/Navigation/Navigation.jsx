@@ -12,6 +12,8 @@ const Navigation = ({ active, setActive }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { user } = useSelector((state) => state.auth);
+
   const handleLogout = () => {
     dispatch(logoutRequest());
     navigate("/login");
@@ -22,8 +24,8 @@ const Navigation = ({ active, setActive }) => {
       <div className="user">
         <img src={avatar} alt="" />
         <div className="text">
-          <h2>Mike</h2>
-          <p>Your Money</p>
+          <div className="name">{user.name}</div>
+          <div className="email">{user.email}</div>
         </div>
       </div>
       <ul className="nav-menu-items">

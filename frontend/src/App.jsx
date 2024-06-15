@@ -8,6 +8,7 @@ import { TailSpin } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import UserAuth from "./components/Login";
+import PrivateRoutes from "./PrivateRoutes";
 
 import "./App.scss";
 
@@ -46,7 +47,14 @@ function Home() {
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route
+        path="/"
+        element={
+          <PrivateRoutes>
+            <Home />
+          </PrivateRoutes>
+        }
+      />
       <Route path="/login" element={<UserAuth />} />
     </Routes>
   );
