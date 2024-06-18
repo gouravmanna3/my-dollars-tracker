@@ -35,8 +35,10 @@ function* createExpense(action) {
       }
     );
     yield put(createExpenseSuccess(response.data));
+    toast.success("Expense Added");
   } catch (error) {
     yield put(createExpenseFailure(error.message));
+    toast.error("Failed to add Expense");
   }
 }
 
@@ -46,6 +48,7 @@ function* deleteExpense(action) {
       withCredentials: true,
     });
     yield put(deleteExpenseSuccess(action.payload));
+    toast.success("Expense Deleted");
   } catch (error) {
     yield put(deleteExpenseFailure(error.message));
   }

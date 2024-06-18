@@ -12,6 +12,7 @@ import {
   deleteIncomeRequest,
 } from "./incomeSlice";
 import { BASE_URL } from "../utils/utils";
+import { toast } from "react-toastify";
 
 function* fetchIncome() {
   try {
@@ -36,8 +37,10 @@ function* createIncome(action) {
     );
     console.log(response);
     yield put(createIncomeSuccess(response.data));
+    toast.success("Income Added");
   } catch (error) {
     yield put(createIncomeFailure(error.message));
+    toast.error("Failed to add Income");
   }
 }
 

@@ -1,5 +1,6 @@
 import { takeLatest, put, call } from "redux-saga/effects";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { BASE_URL } from "../utils/utils";
 import {
   loginFailure,
@@ -25,8 +26,10 @@ function* handleLogin(action) {
     );
 
     yield put(loginSuccess(response.data));
+    toast.success("Login successful!");
   } catch (error) {
     yield put(loginFailure(error.message));
+    toast.error("Login failed. Please try again.");
   }
 }
 
@@ -38,8 +41,10 @@ function* handleRegister(action) {
       action.payload
     );
     yield put(registerSuccess());
+    toast.success("Registration successful! Please login.");
   } catch (error) {
     yield put(registerFailure(error.message));
+    toast.error("Registration failed. Please try again.");
   }
 }
 
