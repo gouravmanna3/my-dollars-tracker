@@ -28,8 +28,7 @@ function* handleLogin(action) {
     yield put(loginSuccess(response.data));
     toast.success("Login successful!");
   } catch (error) {
-    yield put(loginFailure(error.message));
-    toast.error("Login failed. Please try again.");
+    yield put(loginFailure(error.response.data.message));
   }
 }
 

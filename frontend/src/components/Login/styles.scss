@@ -16,6 +16,12 @@
     height: 100%;
   }
 
+  & .error {
+    color: var(--color-delete);
+    font-size: 12px;
+    margin-left: 45px;
+  }
+
   & label {
     color: #fff;
     font-size: 2.3em;

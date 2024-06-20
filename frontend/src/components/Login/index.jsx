@@ -12,7 +12,7 @@ const UserAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (user && user.email) {
@@ -42,7 +42,7 @@ const UserAuth = () => {
         <input type="checkbox" id="chk" aria-hidden="true" />
 
         <div className="login">
-          <Login onSubmit={onLoginSubmit} />
+          <Login onSubmit={onLoginSubmit} error={error} />
         </div>
 
         <div className="signup">

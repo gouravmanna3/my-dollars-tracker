@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-const Login = ({ onSubmit }) => {
+const Login = ({ onSubmit, error }) => {
   const {
     register,
     handleSubmit,
@@ -31,6 +31,7 @@ const Login = ({ onSubmit }) => {
         {...register("password", { required: "Password is required" })}
       />
       <button type="submit">Login</button>
+      {error && <span className="error">{error}</span>}
     </form>
   );
 };
