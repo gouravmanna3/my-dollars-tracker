@@ -66,7 +66,10 @@ const loginUser = async (req, res) => {
   }
 };
 
-const logoutUser = (req, res) => {};
+const logoutUser = (req, res) => {
+  res.cookie("token", "", { maxAge: 0 });
+  res.status(200).json({ message: "Logged out" });
+};
 
 const auth = async (req, res, next) => {
   const token = req.cookies.jwtToken;
