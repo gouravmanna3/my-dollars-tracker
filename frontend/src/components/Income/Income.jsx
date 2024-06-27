@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TailSpin } from "react-loader-spinner";
+
 import Form from "./Form";
 import {
   fetchIncomeRequest,
@@ -13,6 +13,7 @@ import IncomeItem from "./IncomeItem";
 import { incomeCategory } from "../../utils/menuItems";
 
 import "./Income.scss";
+import LoaderSpinner from "../common/LoaderSpinner/LoaderSpinner";
 
 const Income = () => {
   const dispatch = useDispatch();
@@ -33,18 +34,7 @@ const Income = () => {
 
   return (
     <div className="income-container">
-      {loading && (
-        <TailSpin
-          visible={true}
-          height="80"
-          width="80"
-          color="#4fa94d"
-          ariaLabel="tail-spin-loading"
-          radius="1"
-          wrapperStyle={{}}
-          wrapperClass="loader"
-        />
-      )}
+      {loading && <LoaderSpinner />}
       <div className="inner-layout">
         <h1>Incomes</h1>
         <h2 className="total-income">

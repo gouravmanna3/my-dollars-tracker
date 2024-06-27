@@ -12,6 +12,7 @@ import Form from "../Income/Form";
 import IncomeItem from "../Income/IncomeItem";
 import { TailSpin } from "react-loader-spinner";
 import { expenseCategory } from "../../utils/menuItems";
+import LoaderSpinner from "../common/LoaderSpinner/LoaderSpinner";
 
 const Expenses = () => {
   const dispatch = useDispatch();
@@ -30,18 +31,7 @@ const Expenses = () => {
   };
   return (
     <div className="income-container">
-      {loading && (
-        <TailSpin
-          visible={true}
-          height="80"
-          width="80"
-          color="#4fa94d"
-          ariaLabel="tail-spin-loading"
-          radius="1"
-          wrapperStyle={{}}
-          wrapperClass="loader"
-        />
-      )}
+      {loading && <LoaderSpinner />}
       <div className="inner-layout">
         <h1>Expenses</h1>
         <h2 className="total-income">
