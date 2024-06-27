@@ -16,7 +16,7 @@ const UserAuth = () => {
 
   useEffect(() => {
     if (user && user.email) {
-      navigate("/");
+      navigate("/dashboard");
     }
   }, [user, navigate]);
 

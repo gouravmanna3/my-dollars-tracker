@@ -12,12 +12,12 @@ export const menuItems = [
     icon: faHouse,
     link: "/dashboard",
   },
-  {
-    id: 2,
-    title: "View Transactions",
-    icon: faCreditCard,
-    link: "/dashboard",
-  },
+  // {
+  //   id: 2,
+  //   title: "View Transactions",
+  //   icon: faCreditCard,
+  //   link: "/dashboard",
+  // },
   {
     id: 3,
     title: "Incomes",
@@ -28,7 +28,7 @@ export const menuItems = [
     id: 4,
     title: "Expenses",
     icon: faMoneyBillTransfer,
-    link: "/dashboard",
+    link: "/expenses",
   },
 ];
 

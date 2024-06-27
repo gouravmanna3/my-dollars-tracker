@@ -6,7 +6,7 @@ import Income from "./components/Income/Income";
 import Expenses from "./components/Expenses/Expenses";
 import { TailSpin } from "react-loader-spinner";
 import { useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import UserAuth from "./components/Login";
 import PrivateRoutes from "./PrivateRoutes";
 
@@ -18,27 +18,15 @@ function Home() {
 
   const orbMemo = useMemo(() => <Orb />);
 
-  const displayData = () => {
-    switch (active) {
-      case 1:
-        return <Dashboard />;
-      case 2:
-        return <Dashboard />;
-      case 3:
-        return <Income />;
-      case 4:
-        return <Expenses />;
-      default:
-        return <Dashboard />;
-    }
-  };
   return (
     <div className="app-container">
       {orbMemo}
       <div className="main-container">
         <Navigation active={active} setActive={setActive} />
 
-        <main className="content-container">{displayData()}</main>
+        <main className="content-container">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
@@ -54,7 +42,11 @@ const App = () => {
             <Home />
           </PrivateRoutes>
         }
-      />
+      >
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/incomes" element={<Income />} />
+        <Route path="/expenses" element={<Expenses />} />
+      </Route>
       <Route path="/login" element={<UserAuth />} />
     </Routes>
   );

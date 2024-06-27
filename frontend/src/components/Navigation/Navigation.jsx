@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import avatar from "../../../public/images/avatar.png";
@@ -31,13 +31,15 @@ const Navigation = ({ active, setActive }) => {
       <ul className="nav-menu-items">
         {menuItems.map((item) => {
           return (
-            <li
-              key={item.id}
-              className={active === item.id ? "active" : ""}
-              onClick={() => setActive(item.id)}
-            >
-              <FontAwesomeIcon icon={item.icon} />
-              <span>{item.title}</span>
+            <li key={item.id}>
+              <Link
+                to={item.link}
+                className={`link ${active === item.id ? "active" : ""}`}
+                onClick={() => setActive(item.id)}
+              >
+                <FontAwesomeIcon icon={item.icon} />
+                <span>{item.title}</span>
+              </Link>
             </li>
           );
         })}
