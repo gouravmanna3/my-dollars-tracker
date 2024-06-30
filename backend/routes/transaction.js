@@ -20,10 +20,10 @@ const router = express.Router();
 
 router
   .post("/add-income", auth, addIncome)
-  .get("/get-incomes", auth, getIncomes)
+  .get("/get-incomes/:user_id", auth, getIncomes)
   .delete("/delete-income/:id", auth, deleteIncome)
   .post("/add-expense", auth, addExpense)
-  .get("/get-expenses", auth, getExpenses)
+  .get("/get-expenses/:user_id", auth, getExpenses)
   .delete("/delete-expense/:id", auth, deleteExpense)
   .post("/register", registerUser)
   .post("/login", loginUser)

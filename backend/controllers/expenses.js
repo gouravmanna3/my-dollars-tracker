@@ -1,9 +1,11 @@
 const Expense = require("../models/ExpenseModel");
+const User = require("../models/UserModel");
 
 const addExpense = async (req, res) => {
-  const { title, amount, category, description, date } = req.body;
+  const { title, amount, category, description, date, user_id } = req.body;
 
   const expense = Expense({
+    user_id,
     title,
     amount,
     category,
@@ -12,7 +14,7 @@ const addExpense = async (req, res) => {
   });
 
   try {
-    if (!title || !category || !description || !date) {
+    if (!user_id || !title || !category || !description || !date) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -21,6 +23,12 @@ const addExpense = async (req, res) => {
         .status(400)
         .json({ message: "Amount must be a positive number!" });
     }
+
+    const user = await User.findById(user_id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
     await expense.save();
     res
       .status(201)
@@ -31,8 +39,12 @@ const addExpense = async (req, res) => {
 };
 
 const getExpenses = async (req, res) => {
+  const { user_id } = req.params;
   try {
-    const expense = await Expense.find().sort({ createdAt: -1 });
+    if (!user_id) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+    const expense = await Expense.find({ user_id }).sort({ createdAt: -1 });
     res.status(200).json(expense);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });

@@ -1,8 +1,10 @@
 const Income = require("../models/IncomeModel");
+const User = require("../models/UserModel");
 
 const addIncome = async (req, res) => {
-  const { title, amount, category, description, date } = req.body;
+  const { title, amount, category, description, date, user_id } = req.body;
   const income = Income({
+    user_id,
     title,
     amount,
     category,
@@ -19,6 +21,11 @@ const addIncome = async (req, res) => {
         .json({ message: "Amount must be a positive number!" });
     }
 
+    const user = await User.findById(user_id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
     await income.save();
     res
       .status(201)
@@ -30,8 +37,13 @@ const addIncome = async (req, res) => {
 };
 
 const getIncomes = async (req, res) => {
+  console.log(req.params);
+  const { user_id } = req.params;
   try {
-    const incomes = await Income.find().sort({ createdAt: -1 });
+    if (!user_id) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+    const incomes = await Income.find({ user_id }).sort({ createdAt: -1 });
     res.status(200).json(incomes);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
