@@ -57,7 +57,9 @@ const loginUser = async (req, res) => {
     });
 
     // Send a 200 response with the user's details in the JSON response
-    res.status(200).json({ name: user.fullName, email: user.email });
+    res
+      .status(200)
+      .json({ name: user.fullName, email: user.email, id: user._id });
   } catch (err) {
     // If an error occurs, send a 400 response with the error details
     res.status(400).json({ err });
@@ -102,7 +104,11 @@ const verifyToken = async (req, res) => {
     }
 
     // Token is valid
-    res.status(200).json({ user: decoded.user });
+    res.status(200).json({
+      name: decoded.user.fullName,
+      email: decoded.user.email,
+      id: decoded.user._id,
+    });
   });
 };
 
