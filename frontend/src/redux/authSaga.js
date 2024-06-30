@@ -21,9 +21,7 @@ function* handleLogin(action) {
       axios.post,
       `${BASE_URL}login`,
       action.payload,
-      {
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
     yield put(loginSuccess(response.data));
     toast.success("Login successful!");
@@ -49,8 +47,9 @@ function* handleRegister(action) {
 
 function* handleLogout() {
   try {
-    yield call(axios.post, `${BASE_URL}logout`, { withCredentials: true });
+    yield call(axios.post, `${BASE_URL}logout`, {}, { withCredentials: true });
     yield put(logoutSuccess());
+    toast.success("Logged Out!");
   } catch (error) {
     yield put(logoutFailure(error.response.data.message));
   }
@@ -63,7 +62,7 @@ function* handleCheckToken() {
     });
     yield put(loginSuccess(response.data.user));
   } catch (error) {
-    yield put(loginFailure(error.response.data.message));
+    console.log(error);
   }
 }
 

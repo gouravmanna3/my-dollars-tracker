@@ -14,6 +14,7 @@ const {
   loginUser,
   logoutUser,
   auth,
+  verifyToken,
 } = require("../controllers/auth");
 const router = express.Router();
 
@@ -26,6 +27,7 @@ router
   .delete("/delete-expense/:id", auth, deleteExpense)
   .post("/register", registerUser)
   .post("/login", loginUser)
-  .post("/logout", logoutUser);
+  .post("/logout", logoutUser)
+  .get("/verify-token", verifyToken);
 
 module.exports = router;

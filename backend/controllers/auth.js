@@ -4,15 +4,13 @@ const jwt = require("jsonwebtoken");
 const secretKey = process.env.JWT_SECRET_KEY;
 
 const handleError = (err) => {
-  console.log(err.message);
-
   if (err.code === 11000) {
     return { message: "Email is already registered" };
   }
 };
 
-const createToken = (id) => {
-  return jwt.sign({ id }, secretKey, {
+const createToken = (user) => {
+  return jwt.sign({ user }, secretKey, {
     expiresIn: "1h",
   });
 };
@@ -39,6 +37,7 @@ const registerUser = async (req, res) => {
 // Route to handle user login and set JWT cookie
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+
   try {
     // Find the user in the database by email
     const user = await User.findOne({ email });
@@ -49,7 +48,7 @@ const loginUser = async (req, res) => {
     }
 
     // If authentication is successful, create a JWT token with the user's ID
-    const token = createToken(user._id);
+    const token = createToken(user);
 
     // Set the JWT token as an HTTP-only cookie that expires in 24 hours
     res.cookie("jwtToken", token, {
@@ -61,13 +60,16 @@ const loginUser = async (req, res) => {
     res.status(200).json({ name: user.fullName, email: user.email });
   } catch (err) {
     // If an error occurs, send a 400 response with the error details
-    console.log("ERROR ###########", err);
     res.status(400).json({ err });
   }
 };
 
 const logoutUser = (req, res) => {
-  res.cookie("token", "", { maxAge: 0 });
+  res.clearCookie("jwtToken", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
   res.status(200).json({ message: "Logged out" });
 };
 
@@ -76,12 +78,9 @@ const auth = async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, secretKey);
-      console.log("decoded", decoded);
       req.user = await User.findById(decoded.id).select("-password");
-      console.log(req.user);
       next();
     } catch (error) {
-      console.error(error);
       res.status(401).json({ message: "Not authorized, token failed" });
     }
   }
@@ -90,4 +89,21 @@ const auth = async (req, res, next) => {
   }
 };
 
-module.exports = { registerUser, loginUser, logoutUser, auth };
+const verifyToken = async (req, res) => {
+  const token = req.cookies.jwtToken;
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: "Failed to authenticate token" });
+    }
+
+    // Token is valid
+    res.status(200).json({ user: decoded.user });
+  });
+};
+
+module.exports = { registerUser, loginUser, logoutUser, auth, verifyToken };
