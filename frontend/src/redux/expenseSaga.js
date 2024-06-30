@@ -13,11 +13,17 @@ import {
 } from "./expenseSlice";
 import { BASE_URL } from "../utils/utils";
 
-function* fetchExpense() {
+function* fetchExpense(action) {
+  const user_id = action.payload;
+
   try {
-    const response = yield call(axios.get, `${BASE_URL}get-expenses`, {
-      withCredentials: true,
-    });
+    const response = yield call(
+      axios.get,
+      `${BASE_URL}get-expenses/${user_id}`,
+      {
+        withCredentials: true,
+      }
+    );
     yield put(fetchExpenseSuccess(response.data));
   } catch (err) {
     yield put(fetchExpenseFailure(err.message));

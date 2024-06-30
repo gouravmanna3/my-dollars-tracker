@@ -14,11 +14,16 @@ import {
 import { BASE_URL } from "../utils/utils";
 import { toast } from "react-toastify";
 
-function* fetchIncome() {
+function* fetchIncome(action) {
+  const user_id = action.payload;
   try {
-    const response = yield call(axios.get, `${BASE_URL}get-incomes`, {
-      withCredentials: true,
-    });
+    const response = yield call(
+      axios.get,
+      `${BASE_URL}get-incomes/${user_id}`,
+      {
+        withCredentials: true,
+      }
+    );
     yield put(fetchIncomeSuccess(response.data));
   } catch (err) {
     yield put(fetchIncomeFailure(err.message));
@@ -35,7 +40,6 @@ function* createIncome(action) {
         withCredentials: true,
       }
     );
-    console.log(response);
     yield put(createIncomeSuccess(response.data));
     toast.success("Income Added");
   } catch (error) {

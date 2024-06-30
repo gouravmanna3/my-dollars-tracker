@@ -16,14 +16,16 @@ import "./Income.scss";
 
 const Income = () => {
   const dispatch = useDispatch();
+
   const { incomes, loading, error } = useSelector((state) => state.incomes);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(fetchIncomeRequest());
+    dispatch(fetchIncomeRequest(user.id));
   }, [dispatch]);
 
   const addIncome = (data) => {
-    dispatch(createIncomeRequest(data));
+    dispatch(createIncomeRequest({ ...data, user_id: user.id }));
   };
 
   const deleteIncome = (id) => {

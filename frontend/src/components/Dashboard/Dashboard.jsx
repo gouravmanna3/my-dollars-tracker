@@ -11,12 +11,13 @@ import "./Dashboard.scss";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { incomes } = useSelector((state) => state.incomes);
   const { expenses } = useSelector((state) => state.expenses);
+  const { incomes } = useSelector((state) => state.incomes);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(fetchIncomeRequest());
-    dispatch(fetchExpenseRequest());
+    dispatch(fetchIncomeRequest(user.id));
+    dispatch(fetchExpenseRequest(user.id));
   }, [dispatch]);
 
   const transactionHistory = () => {

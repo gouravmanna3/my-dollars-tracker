@@ -60,7 +60,7 @@ function* handleCheckToken() {
     const response = yield call(axios.get, `${BASE_URL}verify-token`, {
       withCredentials: true,
     });
-    yield put(loginSuccess(response.data.user));
+    yield put(loginSuccess(response.data));
   } catch (error) {
     console.log(error);
   }

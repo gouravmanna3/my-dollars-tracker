@@ -16,14 +16,15 @@ import LoaderSpinner from "../common/LoaderSpinner/LoaderSpinner";
 
 const Expenses = () => {
   const dispatch = useDispatch();
-  const { expenses, loading } = useSelector((state) => state.expenses);
+  const { expenses, loading, error } = useSelector((state) => state.expenses);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(fetchExpenseRequest());
+    dispatch(fetchExpenseRequest(user.id));
   }, [dispatch]);
 
   const addExpense = (data) => {
-    dispatch(createExpenseRequest(data));
+    dispatch(createExpenseRequest({ ...data, user_id: user.id }));
   };
 
   const deleteExpense = (id) => {
