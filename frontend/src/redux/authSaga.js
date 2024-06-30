@@ -12,6 +12,7 @@ import {
   registerFailure,
   registerRequest,
   registerSuccess,
+  checkToken,
 } from "./authSlice";
 
 function* handleLogin(action) {
@@ -24,7 +25,6 @@ function* handleLogin(action) {
         withCredentials: true,
       }
     );
-
     yield put(loginSuccess(response.data));
     toast.success("Login successful!");
   } catch (error) {
@@ -49,10 +49,21 @@ function* handleRegister(action) {
 
 function* handleLogout() {
   try {
-    yield call(axios.post, `${BASE_URL}logout`);
+    yield call(axios.post, `${BASE_URL}logout`, { withCredentials: true });
     yield put(logoutSuccess());
   } catch (error) {
     yield put(logoutFailure(error.response.data.message));
+  }
+}
+
+function* handleCheckToken() {
+  try {
+    const response = yield call(axios.get, `${BASE_URL}verify-token`, {
+      withCredentials: true,
+    });
+    yield put(loginSuccess(response.data.user));
+  } catch (error) {
+    yield put(loginFailure(error.response.data.message));
   }
 }
 
@@ -60,6 +71,7 @@ function* watchLogin() {
   yield takeLatest(loginRequest.type, handleLogin);
   yield takeLatest(registerRequest.type, handleRegister);
   yield takeLatest(logoutRequest.type, handleLogout);
+  yield takeLatest(checkToken.type, handleCheckToken);
 }
 
 export default watchLogin;

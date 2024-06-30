@@ -1,9 +1,9 @@
-import { useMemo, useState, Suspense, lazy } from "react";
-import { useSelector } from "react-redux";
+import { useMemo, useState, Suspense, lazy, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet, Route, Routes } from "react-router-dom";
 import Orb from "./components/Orb/orb";
 import Navigation from "./components/Navigation/Navigation";
-
+import LoaderSpinner from "./components/common/LoaderSpinner/LoaderSpinner";
 import UserAuth from "./components/Login";
 import PrivateRoutes from "./PrivateRoutes";
 
@@ -12,7 +12,7 @@ const Income = lazy(() => import("./components/Income/Income"));
 const Expenses = lazy(() => import("./components/Expenses/Expenses"));
 
 import "./App.scss";
-import LoaderSpinner from "./components/common/LoaderSpinner/LoaderSpinner";
+import { checkToken } from "./redux/authSlice";
 
 function Home() {
   const [active, setActive] = useState(1);
@@ -35,6 +35,12 @@ function Home() {
 }
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkToken());
+  }, [dispatch]);
+
   return (
     <Routes>
       <Route

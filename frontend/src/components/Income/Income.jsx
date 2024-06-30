@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import Form from "./Form";
 import {
   fetchIncomeRequest,
@@ -11,15 +10,14 @@ import {
 import { totalIncome } from "../../utils/utils";
 import IncomeItem from "./IncomeItem";
 import { incomeCategory } from "../../utils/menuItems";
+import LoaderSpinner from "../common/LoaderSpinner/LoaderSpinner";
 
 import "./Income.scss";
-import LoaderSpinner from "../common/LoaderSpinner/LoaderSpinner";
 
 const Income = () => {
   const dispatch = useDispatch();
   const { incomes, loading, error } = useSelector((state) => state.incomes);
 
-  console.log("selector", incomes);
   useEffect(() => {
     dispatch(fetchIncomeRequest());
   }, [dispatch]);

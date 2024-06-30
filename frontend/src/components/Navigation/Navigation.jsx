@@ -16,7 +16,6 @@ const Navigation = ({ active, setActive }) => {
 
   const handleLogout = () => {
     dispatch(logoutRequest());
-    navigate("/login");
   };
 
   return (
